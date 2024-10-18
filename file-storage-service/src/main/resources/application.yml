@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: TriggerLambdaFunction
+
+  datasource:
+    url: jdbc:mysql://database-2.c1wq6oswiycr.ap-south-1.rds.amazonaws.com:3306/employee
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: { username }
+    password: { password }
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2MB
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+server:
+  port: 9090
+
+cloud:
+  aws:
+    credentials:
+      access-key: { Access-key }
+      secret-key: { Secret-key }
+    region:
+      static: { region }
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: { bucket-name }
