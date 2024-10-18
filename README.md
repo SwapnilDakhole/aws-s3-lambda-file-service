@@ -1,7 +1,6 @@
 
-### README.md
+---
 
-```md
 # AWS S3 and Lambda File Service
 
 This repository contains two Spring Boot projects:
@@ -11,21 +10,21 @@ This repository contains two Spring Boot projects:
 ## Project 1: File Storage Service
 
 ### Overview
-This project allows you to upload files to AWS S3 and retrieve them. The files are stored in a designated S3 bucket.
+The **File Storage Service** allows you to upload, retrieve, and manage files stored in an AWS S3 bucket.
 
 ### Features
 - Upload files to AWS S3.
-- Retrieve files from AWS S3.
+- Retrieve files from AWS S3 by filename.
 - Delete files from S3 bucket.
 
 ### Technologies
 - Spring Boot
 - AWS S3 SDK
-- MySQL Database (for file metadata)
+- MySQL Database (for storing file metadata)
 
 ### Configuration
 
-Ensure the following properties are set in the `application.yml` file:
+Make sure the following properties are configured in your `application.yml`:
 ```yaml
 aws:
   s3:
@@ -33,9 +32,19 @@ aws:
     access-key: your-access-key
     secret-key: your-secret-key
     region: your-region
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/your-database
+    username: your-username
+    password: your-password
 ```
 
-### Run the Application
+### Running the Application
+1. Install dependencies:
+```bash
+mvn clean install
+```
+2. Start the application:
 ```bash
 ./mvnw spring-boot:run
 ```
@@ -51,20 +60,20 @@ aws:
 ## Project 2: Lambda Trigger Service
 
 ### Overview
-This project listens for file uploads to an S3 bucket and triggers an AWS Lambda function for further processing.
+The **Lambda Trigger Service** listens for file uploads in the AWS S3 bucket and triggers a specified AWS Lambda function to process these files.
 
 ### Features
-- Monitors AWS S3 bucket for file uploads.
-- Triggers a Lambda function upon file upload.
+- Monitors AWS S3 bucket for uploaded files.
+- Triggers AWS Lambda function upon file upload.
 
 ### Technologies
 - Spring Boot
-- AWS Lambda
 - AWS S3 SDK
+- AWS Lambda
 
 ### Configuration
 
-Ensure the following properties are set in the `application.yml` file:
+Ensure the following properties are set in the `application.yml`:
 ```yaml
 aws:
   s3:
@@ -75,29 +84,36 @@ aws:
 ```
 
 ### Lambda Configuration
-Ensure that the Lambda function has the required permissions and is set up to handle S3 events.
+- Ensure the AWS Lambda function is correctly set up with necessary S3 event triggers and permissions.
+- Update the Lambda's IAM role with permissions to access the S3 bucket.
 
-### Run the Application
+### Running the Application
+1. Install dependencies:
+```bash
+mvn clean install
+```
+2. Start the application:
 ```bash
 ./mvnw spring-boot:run
 ```
 
 ---
 
-## How to Setup
+## Setup Instructions
 
+### Prerequisites:
+- Java 11+
+- Maven
+- AWS Account with S3 and Lambda services enabled
+
+### Steps:
 1. Clone the repository:
 ```bash
 git clone https://github.com/your-username/aws-s3-lambda-file-service.git
 ```
 
-2. Navigate into each project directory and update the `application.yml` with your AWS credentials and configurations.
+2. Navigate into each project directory (File Storage Service and Lambda Trigger Service).
+3. Update `application.yml` with your AWS credentials, S3 bucket name, Lambda function name, and other configuration settings.
+4. Run each project using Maven as instructed above.
 
-3. Run each project using Maven.
-
-## Prerequisites
-
-- Java 11+
-- Maven
-- AWS account with S3 and Lambda services configured.
-
+---
